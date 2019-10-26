@@ -4,11 +4,11 @@
     <el-card>
       <img src="../../assets/logo_index.png" width="200px" alt />
       <!-- 表单 -->
-      <el-form ref="form" :model="loginForm">
-        <el-form-item>
-          <el-input v-model="loginForm.phone" placeholder="请输入手机号"></el-input>
+      <el-form status-icon ref="loginForm" :rules="rules" :model="loginForm">
+        <el-form-item prop="mobile">
+          <el-input v-model="loginForm.mobile" placeholder="请输入手机号"></el-input>
         </el-form-item>
-        <el-form-item>
+        <el-form-item prop="code">
           <el-input
             v-model="loginForm.code"
             style="width:235px;margin-right:10px;"
@@ -22,7 +22,7 @@
           </el-checkbox-group>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" style="width:100%;">立即登录</el-button>
+          <el-button @click="login" type="primary" style="width:100%;">立即登录</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -32,11 +32,45 @@
 <script>
 export default {
   data () {
+    const checkPhone = (rule, value, callback) => {
+      if (/^1[3-9]\d{9}$/.test(value)) {
+        callback()
+      } else {
+        callback(new Error('手机号不正确'))
+      }
+    }
     return {
       loginForm: {
-        phone: '',
+        mobile: '',
         code: ''
+      },
+      rules: {
+        mobile: [
+          { required: true, message: '请输入手机号', trigger: 'blur' },
+          { validator: checkPhone, trigger: 'blur' }
+        ],
+        code: [
+          { required: true, message: '请输入验证码', trigger: 'blur' },
+          { len: 6, message: '验证码6个字符', trigger: 'blur' }
+        ]
       }
+    }
+  },
+  methods: {
+    login (formData) {
+      this.$refs['loginForm'].validate(valid => {
+        if (valid) {
+          this.$http
+            .post('authorizations', this.loginForm)
+            .then(res => {
+              console.log(res.data)
+              this.$router.push('/')
+            })
+            .catch(() => {
+              this.$message.error('手机号或验证码不正确')
+            })
+        }
+      })
     }
   }
 }
