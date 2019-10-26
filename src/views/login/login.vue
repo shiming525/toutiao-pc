@@ -45,7 +45,7 @@ export default {
         code: ''
       },
       rules: {
-        phone: [
+        mobile: [
           { required: true, message: '请输入手机号', trigger: 'blur' },
           { validator: checkPhone, trigger: 'blur' }
         ],
@@ -60,30 +60,15 @@ export default {
     login (formData) {
       this.$refs['loginForm'].validate(valid => {
         if (valid) {
-          // this.$http
-          //   .post('authorizations', this.loginForm)
-          //   .then(res => {
-          //     console.log(res.data)
-          //     this.$router.push('/')
-          //   })
-          //   .catch(() => {
-          //     this.$message.error('手机号或验证码不正确')
-          //   })
-          this.$refs['loginForm'].validate(valid => {
-            if (valid) {
-              // 发请求 校验手机号和验证码  后台
-              this.$http
-                .post('authorizations', this.loginForm)
-                .then(res => {
-                  // 成功
-                  this.$router.push('/')
-                })
-                .catch(() => {
-                  // 失败 提示
-                  this.$message.error('手机号或验证码错误')
-                })
-            }
-          })
+          this.$http
+            .post('authorizations', this.loginForm)
+            .then(res => {
+              console.log(res.data)
+              this.$router.push('/')
+            })
+            .catch(() => {
+              this.$message.error('手机号或验证码不正确')
+            })
         }
       })
     }
