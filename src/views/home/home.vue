@@ -3,7 +3,7 @@
     <el-aside :width="isOpen?'200px':'64px'">
       <div class="logo" :class="{samllLogo:!isOpen}"></div>
       <el-menu
-        default-active="/"
+        :default-active="$route.path"
         background-color="#002033"
         text-color="#fff"
         active-text-color="#ffd04b"
@@ -49,15 +49,15 @@
         <!-- 文字 -->
         <span>江苏传智播客科技教育有限公司</span>
         <!-- 下拉菜单 -->
-        <el-dropdown>
+        <el-dropdown @command="headleClick">
           <span class="el-dropdown-link">
-            <img class="headIcon" src="../../assets/avatar.jpg" alt />
-            <span class="text">用户名称</span>
+            <img class="headIcon" :src="userIofn.img" alt />
+            <span class="text">{{userIofn.name}}</span>
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
-          <el-dropdown-menu slot="dropdown">
-            <el-dropdown-item icon="el-icon-setting">个人管理</el-dropdown-item>
-            <el-dropdown-item icon="el-icon-unlock">退出登录</el-dropdown-item>
+          <el-dropdown-menu slot="dropdown" >
+            <el-dropdown-item icon="el-icon-setting" command="setting">个人管理</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-unlock" command="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </el-header>
@@ -69,16 +69,34 @@
 </template>
 
 <script>
+import local from '@/utils/local'
 export default {
   data () {
     return {
-      isOpen: true
+      isOpen: true,
+      userIofn: {
+        name: '',
+        img: ''
+      }
     }
   },
   methods: {
     open () {
       this.isOpen = !this.isOpen
+    },
+    setting () {
+      this.$router.push('/getting')
+    },
+    logout () {
+      local.delUser()
+      this.$router.push('/login')
+    },
+    headleClick (command) {
+      this[command]() // this[command]()===this.setting()  //this[command]()===this.logout()
     }
+  },
+  created () {
+    this.userIofn = local.getUser()
   }
 }
 </script>

@@ -4,9 +4,11 @@ import Login from '@/views/login/login.vue'
 import Home from '@/views/home/home.vue'
 import welcome from '@/views/welcome/index.vue'
 import notFond from '@/views/404/index.vue'
+import local from '@/utils/local'
+import Article from '@/views/article/article.vue'
 Vue.use(VueRouter)
 
-export default new VueRouter({
+const router = new VueRouter({
   routes: [
     {
       path: '/login',
@@ -19,6 +21,9 @@ export default new VueRouter({
         {
           path: '/',
           component: welcome
+        },
+        { path: '/article',
+          component: Article
         }
       ]
     },
@@ -28,3 +33,18 @@ export default new VueRouter({
     }
   ]
 })
+
+router.beforeEach((to, from, next) => {
+  const user = local.getUser()
+  if (user && user.token) {
+    next()
+  } else {
+    if (to.path === '/login') {
+      next()
+    } else {
+      next('/login')
+    }
+  }
+})
+
+export default router
