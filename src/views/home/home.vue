@@ -146,8 +146,5 @@ export default {
       }
     }
   }
-  // .el-main {
-  //   background: url("../../assets/welcome.jpg") no-repeat center;
-  // }
 }
 </style>

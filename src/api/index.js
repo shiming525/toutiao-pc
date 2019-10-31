@@ -1,9 +1,17 @@
 import axios from 'axios'
 import local from '@/utils/local'
 import router from '@/router'
-axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
+import JSONBIG from 'json-bigint'
 
-// 添加拦截请求器
+axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
+axios.defaults.transformResponse = [data => {
+  try {
+    return JSONBIG.parse(data)
+  } catch (e) {
+    return data
+  }
+}]
+// 添加请求拦截器
 axios.interceptors.request.use((config) => {
   // 在发送请求之前获取token 并设置请求头
   const user = local.getUser() || {}
