@@ -16,15 +16,9 @@
             <el-radio :label="4">已删除</el-radio>
           </el-radio-group>
         </el-form-item>
+        <!-- 频道 -->
         <el-form-item label="频道 :">
-          <el-select v-model="reqParams.channel_id" clearable placeholder="请选择">
-            <el-option
-              v-for="item in options"
-              :key="item.id"
-              :label="item.name"
-              :value="item.id">
-            </el-option>
-          </el-select>
+          <my-channel v-model="reqParams.channel_id"></my-channel>
         </el-form-item>
         <el-form-item label="日期 :">
           <el-date-picker
@@ -113,10 +107,10 @@ export default {
     }
   },
   methods: {
-    async getOptions () {
-      const { data: { data } } = await this.$http.get('channels')
-      this.options = data.channels
-    },
+    // async getOptions () {
+    //   const { data: { data } } = await this.$http.get('channels')
+    //   this.options = data.channels
+    // },
     async getArticles () {
       const { data: { data } } = await this.$http.get('articles', { params: this.reqParams })
       // 给文章列表赋值
@@ -162,8 +156,9 @@ export default {
       this.getArticles()
     }
   },
+  // 在页面渲染时调用
   created () {
-    this.getOptions()
+    // this.getOptions()
     this.getArticles()
   }
 }

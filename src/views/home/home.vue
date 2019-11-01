@@ -51,7 +51,7 @@
         <!-- 下拉菜单 -->
         <el-dropdown @command="headleClick">
           <span class="el-dropdown-link">
-            <img class="headIcon" :src="userIofn.img" alt />
+            <img :src="userIofn.photo" class="headIcon" />
             <span class="text">{{userIofn.name}}</span>
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>

@@ -4,6 +4,7 @@ import router from '@/router'
 import JSONBIG from 'json-bigint'
 
 axios.defaults.baseURL = 'http://ttapi.research.itcast.cn/mp/v1_0/'
+// 在响应的时候对后台传过来的id进行格式转换
 axios.defaults.transformResponse = [data => {
   try {
     return JSONBIG.parse(data)
