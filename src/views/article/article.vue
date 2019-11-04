@@ -39,7 +39,7 @@
 
     <el-card style="margin-top: 20px;">
       <div slot="header">
-        <span>根据筛选条件共查询到 {{totle}} 条结果：</span>
+        <span>根据筛选条件共查询到 {{total}} 条结果：</span>
       </div>
       <el-table :data="articles">
         <el-table-column label="封面">
@@ -81,10 +81,11 @@
           </template>
         </el-table-column>
       </el-table>
+      <!-- 分页 -->
       <el-pagination
         background
         layout="prev, pager, next"
-        :total="totle"
+        :total="total"
         style="margin-top: 20px;"
         :page-size="reqParams.per_page"
         :current-page="reqParams.page"
@@ -114,7 +115,7 @@ export default {
       // 文章列表
       articles: [],
       // 文章总条数
-      totle: 0
+      total: 0
     }
   },
   methods: {
@@ -129,7 +130,7 @@ export default {
       // 给文章列表赋值
       this.articles = data.results
       // 给文章条数赋值
-      this.totle = data.total_count
+      this.total = data.total_count
     },
     pager (newPage) {
       // newPage这个参数是当前改变后的页码

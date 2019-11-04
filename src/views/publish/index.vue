@@ -36,7 +36,7 @@
         <!-- 按钮 -->
         <el-form-item>
           <el-button type="primary" @click="submitArticle(false)" v-if="!$route.query.id">发布文章</el-button>
-          <el-button type="primary" @click="edit($route.query.id)" v-if="$route.query.id">修改文章</el-button>
+          <el-button type="primary" @click="edit(false,$route.query.id)" v-if="$route.query.id">修改文章</el-button>
           <el-button @click="submitArticle(true)">存为草稿</el-button>
         </el-form-item>
       </el-form>
@@ -112,8 +112,8 @@ export default {
       this.articleForm = data
     },
     // 修改文章
-    async edit (id) {
-      await this.$http.put(`articles/${id}`, this.articleForm)
+    async edit (draft, id) {
+      await this.$http.put(`articles/${id}?draft=${draft}`, this.articleForm)
       this.$router.push('/article')
       this.$message.success('修改成功')
     },
