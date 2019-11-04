@@ -22,17 +22,17 @@
         </el-form-item>
         <el-form-item label="日期 :">
           <el-date-picker
-              v-model="dateArr"
-              type="daterange"
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
-              @change="changeDate"
-              value-format="yyyy-MM-dd"
+            v-model="dateArr"
+            type="daterange"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期"
+            @change="changeDate"
+            value-format="yyyy-MM-dd"
           ></el-date-picker>
         </el-form-item>
         <el-form-item>
-            <el-button type="primary" @click="search">筛选</el-button>
+          <el-button type="primary" @click="search">筛选</el-button>
         </el-form-item>
       </el-form>
     </el-card>
@@ -44,9 +44,9 @@
       <el-table :data="articles">
         <el-table-column label="封面">
           <template slot-scope="scope">
-            <el-image :src="scope.row.cover.images[0]" fit="fill"  style="width:150px;height:100px;">
-              <div slot="error" >
-                <img src="../../assets/error.gif"  style="width:150px;height:100px;">
+            <el-image :src="scope.row.cover.images[0]" fit="fill" style="width:150px;height:100px;">
+              <div slot="error">
+                <img src="../../assets/error.gif" style="width:150px;height:100px;" />
               </div>
             </el-image>
           </template>
@@ -64,8 +64,20 @@
         <el-table-column label="发布时间" prop="pubdate"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button type="primary" icon="el-icon-edit" circle plain @click="toEdit(scope.row.id)"></el-button>
-            <el-button type="danger" icon="el-icon-delete" circle plain @click="deleteArticle(scope.row.id)"></el-button>
+            <el-button
+              type="primary"
+              icon="el-icon-edit"
+              circle
+              plain
+              @click="toEdit(scope.row.id)"
+            ></el-button>
+            <el-button
+              type="danger"
+              icon="el-icon-delete"
+              circle
+              plain
+              @click="deleteArticle(scope.row.id)"
+            ></el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -77,7 +89,7 @@
         :page-size="reqParams.per_page"
         :current-page="reqParams.page"
         @current-change="pager"
-        ></el-pagination>
+      ></el-pagination>
     </el-card>
   </div>
 </template>
@@ -103,7 +115,6 @@ export default {
       articles: [],
       // 文章总条数
       totle: 0
-
     }
   },
   methods: {
@@ -112,7 +123,9 @@ export default {
     //   this.options = data.channels
     // },
     async getArticles () {
-      const { data: { data } } = await this.$http.get('articles', { params: this.reqParams })
+      const {
+        data: { data }
+      } = await this.$http.get('articles', { params: this.reqParams })
       // 给文章列表赋值
       this.articles = data.results
       // 给文章条数赋值

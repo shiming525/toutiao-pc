@@ -6,6 +6,9 @@ import welcome from '@/views/welcome/index.vue'
 import notFond from '@/views/404/index.vue'
 import local from '@/utils/local'
 import Article from '@/views/article/article.vue'
+import Image from '@/views/image/index.vue'
+import Publish from '@/views/publish/index.vue'
+
 Vue.use(VueRouter)
 
 const router = new VueRouter({
@@ -24,6 +27,13 @@ const router = new VueRouter({
         },
         { path: '/article',
           component: Article
+        },
+        { path: '/image',
+          component: Image
+        },
+        {
+          path: '/publish',
+          component: Publish
         }
       ]
     },

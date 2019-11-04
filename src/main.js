@@ -4,7 +4,7 @@ import router from '@/router'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import axios from '@/api'
-
+import '@/styles/index.css'
 import plugin from '@/components'
 Vue.use(plugin)
 // import MyBread from '@/components/my-bread'

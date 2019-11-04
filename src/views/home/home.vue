@@ -96,7 +96,7 @@ export default {
     }
   },
   created () {
-    this.userIofn = local.getUser()
+    this.userIofn = local.getUser() || {}
   }
 }
 </script>
