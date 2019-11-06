@@ -65,6 +65,7 @@ export default {
       this.total = data.total_count
     },
     pager (newPage) {
+      // 将点击的页面传给page
       this.reqParams.page = newPage
       this.getFans()
     }
