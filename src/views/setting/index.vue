@@ -71,7 +71,7 @@ export default {
       rules: {
         name: [
           { required: true, message: '媒体名称', trigger: 'blur' },
-          { min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur' }
+          { min: 3, max: 6, message: '长度在 3 到 6 个字符', trigger: 'blur' }
         ],
         intro: [
           { required: true, message: '媒体介绍', trigger: 'blur' },
