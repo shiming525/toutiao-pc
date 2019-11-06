@@ -9,6 +9,7 @@ import Article from '@/views/article/article.vue'
 import Image from '@/views/image/index.vue'
 import Publish from '@/views/publish/index.vue'
 import Comment from '@/views/comment/index.vue'
+import Setting from '@/views/setting/index.vue'
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,10 @@ const router = new VueRouter({
         {
           path: '/comment',
           component: Comment
+        },
+        {
+          path: '/setting',
+          component: Setting
         }
       ]
     },

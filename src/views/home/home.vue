@@ -56,7 +56,7 @@
             <i class="el-icon-arrow-down el-icon--right"></i>
           </span>
           <el-dropdown-menu slot="dropdown" >
-            <el-dropdown-item icon="el-icon-setting" command="setting">个人管理</el-dropdown-item>
+            <el-dropdown-item icon="el-icon-setting" command="setting">个人设置</el-dropdown-item>
             <el-dropdown-item icon="el-icon-unlock" command="logout">退出登录</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
@@ -70,13 +70,14 @@
 
 <script>
 import local from '@/utils/local'
+import eventBus from '@/api/eventBus'
 export default {
   data () {
     return {
       isOpen: true,
       userIofn: {
         name: '',
-        img: ''
+        photo: ''
       }
     }
   },
@@ -85,18 +86,27 @@ export default {
       this.isOpen = !this.isOpen
     },
     setting () {
-      this.$router.push('/getting')
+      this.$router.push('/setting')
     },
     logout () {
       local.delUser()
       this.$router.push('/login')
     },
     headleClick (command) {
-      this[command]() // this[command]()===this.setting()  //this[command]()===this.logout()
+      this[command]() // this[command]()===this.setting()  || this[command]()===this.logout()
     }
   },
   created () {
     this.userIofn = local.getUser() || {}
+    // 接收修改完成之后的用户名称
+    eventBus.$on('editUserName', name => {
+      this.userIofn.name = name
+    })
+    // 接收修改完成之后的用户头像
+    eventBus.$on('editUserIPhoto', photo => {
+      console.log(photo)
+      this.userIofn.photo = photo
+    })
   }
 }
 </script>

@@ -55,6 +55,7 @@
       </el-tabs>
       <span slot="footer" class="dialog-footer">
         <el-button type="primary" @click="confirmImage">确 定</el-button>
+        <el-button @click="off">取 消</el-button>
       </span>
     </el-dialog>
   </div>
@@ -145,6 +146,12 @@ export default {
         this.dialogVisible = false
         this.$emit('input', this.image)
       }
+    },
+    // 取消
+    off () {
+      this.dialogVisible = false
+      this.selectedImageUrl = null
+      this.uploadImageUrl = null
     }
   }
 }
